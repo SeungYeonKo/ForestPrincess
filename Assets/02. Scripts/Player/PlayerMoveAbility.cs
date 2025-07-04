@@ -6,9 +6,10 @@ public class PlayerMoveAbility : MonoBehaviour
     public float speed = 5f;
 
     private Rigidbody2D rb;
-    private Animator animator;
     private Vector2 targetPosition;
     private bool isMovingToTarget = false;
+
+    private PlayerAnimationAbility _animationAbility;
 
     void Start()
     {
@@ -18,51 +19,32 @@ public class PlayerMoveAbility : MonoBehaviour
         else
             rb.freezeRotation = true;
 
-        animator = GetComponentInChildren<Animator>();
-        if (animator == null)
-            Debug.LogError("Animator 컴포넌트 없음");
-        else
-            animator.applyRootMotion = false;
+        _animationAbility = GetComponent<PlayerAnimationAbility>();
+        if (_animationAbility == null)
+            Debug.LogError("PlayerAnimationAbility 컴포넌트 없음");
     }
 
-  
-     void Update()
+    void Update()
+    {
+        // 플레이어 마우스 이동
+        if (Input.GetMouseButtonDown(1))
         {
-            if (Input.GetMouseButtonDown(1))
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
+            Vector2 mousePos2D = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+
+            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos2D);
+            if (hitCollider != null && hitCollider.CompareTag("Ground"))
             {
-                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mouseWorldPos.z = 0f;
-                Vector2 mousePos2D = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
-
-                Collider2D hitCollider = Physics2D.OverlapPoint(mousePos2D);
-                if (hitCollider != null)
-                {
-                    if (hitCollider.CompareTag("Ground"))
-                    {
-                        targetPosition = mousePos2D;
-                        isMovingToTarget = true;
-                    }
-                    else if (hitCollider.CompareTag("NPC"))
-                    {
-                        Debug.Log("NPC 클릭됨 - 상호작용 로직으로 전환 가능");
-                    }
-                    else
-                    {
-                        Debug.Log("이동 불가한 영역 클릭");
-                    }
-                }
-                else
-                {
-                    Debug.Log("Collider가 없는 빈 공간 클릭됨");
-                }
+                targetPosition = mousePos2D;
+                isMovingToTarget = true;
             }
-
-            bool isMoving = isMovingToTarget;
-            if (animator != null)
-                animator.SetBool("IsMove", isMoving);
         }
 
-    
+        // 애니메이션
+        if (_animationAbility != null)
+            _animationAbility.SetMoveState(isMovingToTarget);
+    }
 
     void FixedUpdate()
     {
@@ -70,6 +52,9 @@ public class PlayerMoveAbility : MonoBehaviour
         {
             Vector2 direction = (targetPosition - rb.position).normalized;
             rb.linearVelocity = direction * speed;
+
+            if (_animationAbility != null)
+                _animationAbility.SetDirection(direction);
 
             if (Vector2.Distance(rb.position, targetPosition) < 0.1f)
             {
