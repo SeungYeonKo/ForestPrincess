@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class PlayerMoveAbility : MonoBehaviour
 {
-    [Tooltip("좌우 입력")]
-    public string HorizontalAxis = "Horizontal";
-    [Tooltip("상하 입력")]
-    public string VerticalAxis = "Vertical";
     [Tooltip("이동 속도")]
     public float speed = 5f;
 
     private Rigidbody2D rb;
     private Animator animator;
-    private Vector2 inputVector;
+    private Vector2 targetPosition;
+    private bool isMovingToTarget = false;
 
     void Start()
     {
@@ -19,34 +16,70 @@ public class PlayerMoveAbility : MonoBehaviour
         if (rb == null)
             Debug.LogError("Rigidbody2D 컴포넌트 없음");
         else
-            rb.freezeRotation = true;  // Z축 회전 고정
+            rb.freezeRotation = true;
 
         animator = GetComponentInChildren<Animator>();
         if (animator == null)
-        {
             Debug.LogError("Animator 컴포넌트 없음");
-        }
         else
-        {
             animator.applyRootMotion = false;
+    }
+
+  
+     void Update()
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mouseWorldPos.z = 0f;
+                Vector2 mousePos2D = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+
+                Collider2D hitCollider = Physics2D.OverlapPoint(mousePos2D);
+                if (hitCollider != null)
+                {
+                    if (hitCollider.CompareTag("Ground"))
+                    {
+                        targetPosition = mousePos2D;
+                        isMovingToTarget = true;
+                    }
+                    else if (hitCollider.CompareTag("NPC"))
+                    {
+                        Debug.Log("NPC 클릭됨 - 상호작용 로직으로 전환 가능");
+                    }
+                    else
+                    {
+                        Debug.Log("이동 불가한 영역 클릭");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Collider가 없는 빈 공간 클릭됨");
+                }
+            }
+
+            bool isMoving = isMovingToTarget;
+            if (animator != null)
+                animator.SetBool("IsMove", isMoving);
         }
-    }
 
-    void Update()
-    {
-        float h = Input.GetAxis(HorizontalAxis);
-        float v = Input.GetAxis(VerticalAxis);
-        inputVector = new Vector2(h, v);
-
-        // 애니메이션 이동 상태 설정
-        bool isMoving = inputVector.sqrMagnitude > 0.01f;
-        if (animator != null)
-            animator.SetBool("IsMove", isMoving);
-    }
+    
 
     void FixedUpdate()
     {
-        // 상하좌우로만 이동
-        rb.linearVelocity = inputVector * speed;
+        if (isMovingToTarget)
+        {
+            Vector2 direction = (targetPosition - rb.position).normalized;
+            rb.linearVelocity = direction * speed;
+
+            if (Vector2.Distance(rb.position, targetPosition) < 0.1f)
+            {
+                rb.linearVelocity = Vector2.zero;
+                isMovingToTarget = false;
+            }
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 }
