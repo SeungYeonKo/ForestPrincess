@@ -26,7 +26,7 @@ public class PlayerMoveAbility : MonoBehaviour
 
     void Update()
     {
-        // 플레이어 마우스 이동
+        // 마우스 클릭으로 이동 목표 설정
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -40,11 +40,8 @@ public class PlayerMoveAbility : MonoBehaviour
                 isMovingToTarget = true;
             }
         }
-
-        // 애니메이션
-        if (_animationAbility != null)
-            _animationAbility.SetMoveState(isMovingToTarget);
     }
+
 
     void FixedUpdate()
     {

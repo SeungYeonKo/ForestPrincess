@@ -18,20 +18,36 @@ public class PlayerAnimationAbility : MonoBehaviour
             Debug.LogError("SpriteRenderer 컴포넌트 없음");
     }
 
-    public void SetMoveState(bool isMoving)
-    {
-        animator.SetBool("IsMove", isMoving);
-    }
-
+    // SetMoveState 함수는 완전히 삭제
     public void SetDirection(Vector2 moveDirection)
     {
-        if (moveDirection.x != 0)
+        if (moveDirection.sqrMagnitude > 0.001f)
         {
-            // flipX로 좌우 시각 반전
-            spriteRenderer.flipX = moveDirection.x < 0;
+            bool isUpMoving = moveDirection.y > 0.1f;
+            bool isDownMoving = moveDirection.y < -0.1f;
 
-            // Animator에 방향 전달
-            animator.SetFloat("DirectionX", moveDirection.x);
+            if (isUpMoving || isDownMoving)
+            {
+                animator.SetBool("IsUpMove", isUpMoving);
+                animator.SetBool("IsDownMove", isDownMoving);
+                animator.SetBool("IsSideMove", false);
+            }
+            else
+            {
+                bool isSideMoving = Mathf.Abs(moveDirection.x) > 0.1f;
+                animator.SetBool("IsSideMove", isSideMoving);
+                animator.SetBool("IsUpMove", false);
+                animator.SetBool("IsDownMove", false);
+
+                if (isSideMoving)
+                    spriteRenderer.flipX = moveDirection.x < 0;
+            }
+        }
+        else
+        {
+            animator.SetBool("IsUpMove", false);
+            animator.SetBool("IsDownMove", false);
+            animator.SetBool("IsSideMove", false);
         }
     }
 }
