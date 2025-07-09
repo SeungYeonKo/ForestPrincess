@@ -45,13 +45,12 @@ public class PlayerMoveAbility : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector2 direction = Vector2.zero;
+
         if (isMovingToTarget)
         {
-            Vector2 direction = (targetPosition - rb.position).normalized;
+            direction = (targetPosition - rb.position).normalized;
             rb.linearVelocity = direction * speed;
-
-            if (_animationAbility != null)
-                _animationAbility.SetDirection(direction);
 
             if (Vector2.Distance(rb.position, targetPosition) < 0.1f)
             {
@@ -63,5 +62,9 @@ public class PlayerMoveAbility : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
+
+        if (_animationAbility != null)
+            _animationAbility.SetDirection(direction);
     }
+
 }
