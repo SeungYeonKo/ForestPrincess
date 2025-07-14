@@ -51,8 +51,8 @@ public class PlayerAnimationAbility : MonoBehaviour
             animator.SetBool("IsUpMove", false);
             animator.SetBool("IsDownMove", false);
             animator.SetBool("IsSideMove", false);
-            Debug.Log($"Idle 진입 조건 체크 → Up: {animator.GetBool("IsUpMove")}, Down: {animator.GetBool("IsDownMove")}, Side: {animator.GetBool("IsSideMove")}");
-            Debug.Log("Idle 상태로 전환 시도");
+            /*Debug.Log($"Idle 진입 조건 체크 → Up: {animator.GetBool("IsUpMove")}, Down: {animator.GetBool("IsDownMove")}, Side: {animator.GetBool("IsSideMove")}");
+            Debug.Log("Idle 상태로 전환 시도");*/
         }
     }
 
