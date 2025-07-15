@@ -22,8 +22,12 @@ public class CursorDetector : MonoBehaviour
                 hovered = true;
                 break;   // SleepArea 우선 감지
             }
-            // 다른 영역들 처리 가능
-            // else if (hit.CompareTag("FishingArea")) { … }
+            else if (hit.CompareTag("ShopArea")) 
+            {
+                CursorManager.Instance.SetHoverCursor(CursorType.Shop);
+                hovered = true;
+                break;   
+            }
         }
 
         // 4. 아무것도 없으면 기본으로 리셋
