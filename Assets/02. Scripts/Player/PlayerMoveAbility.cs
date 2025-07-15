@@ -10,20 +10,23 @@ public class PlayerMoveAbility : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerAnimationAbility animationAbility;
 
-    private Vector2 targetPosition;
-    private Vector2 stage1Target;
-    private bool isMoving = false;
-    private bool isStage1 = false;
+    private Vector2 targetPosition;     // 최종 목표 위치
+    private Vector2 stage1Target;       // L자 읻오 1단계 목표 위치
+    private bool isMoving = false;      // 이동 중인지
+    private bool isStage1 = false;      // 1단계(첫 축인지) 이동중인지 
 
     // 애니메이션용 마지막 방향 저장
     private Vector2 lastDir = Vector2.right;
-    // 도달·방향 전환 판정 임계치
+    // 목표 지점에 충분히 가까워 졌는지 체크 최소거리
     private const float threshold = 0.05f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // 회전 고정
         rb.freezeRotation = true;
+
         // 물리와 렌더링 사이를 부드럽게 보간
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
 
@@ -45,11 +48,11 @@ public class PlayerMoveAbility : MonoBehaviour
                 targetPosition = clickPos;
                 Vector2 current = rb.position;
 
-                // 어느 축을 먼저 움직일지 결정
+                // 어느 축을 먼저 움직일지 결정 : X축 이동 거리가 더 크면 수평이동 먼저
                 bool horizontalFirst = Mathf.Abs(targetPosition.x - current.x)
                                      >= Mathf.Abs(targetPosition.y - current.y);
 
-                // 1단계 목표 (L자 궤적 첫 구간)
+                // 1단계 목표 (L자 이동 첫 구간)
                 stage1Target = horizontalFirst
                     ? new Vector2(targetPosition.x, current.y)
                     : new Vector2(current.x, targetPosition.y);
