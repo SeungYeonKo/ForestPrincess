@@ -12,7 +12,6 @@ public class PlayerActiveAbility : MonoBehaviour
         else Destroy(gameObject);
     }
 
-
     public void Sleep()
     {
         if (isSleeping) return;
@@ -22,13 +21,16 @@ public class PlayerActiveAbility : MonoBehaviour
     private IEnumerator SleepRoutine()
     {
         isSleeping = true;
-        Debug.Log("잠자기");  
+        Debug.Log("잠자기");
 
-        yield return new WaitForSeconds(8f); 
+        // 8초 대기
+        yield return new WaitForSeconds(8f);
 
         Debug.Log("잠자기 종료");
         isSleeping = false;
-        
-    }
 
+        // 끝나면 이미지 숨기기
+        if (CanvasController.Instance != null)
+            CanvasController.Instance.HideSleepImage();
+    }
 }
