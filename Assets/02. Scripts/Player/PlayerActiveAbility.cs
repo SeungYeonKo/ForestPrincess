@@ -21,6 +21,8 @@ public class PlayerActiveAbility : MonoBehaviour
     private IEnumerator SleepRoutine()
     {
         isSleeping = true;
+
+        PlayerAnimationAbility.Instance.SetSleeping(true);
         Debug.Log("잠자기");
 
         // 8초 대기
@@ -28,6 +30,8 @@ public class PlayerActiveAbility : MonoBehaviour
 
         Debug.Log("잠자기 종료");
         isSleeping = false;
+
+        PlayerAnimationAbility.Instance.SetSleeping(false);
 
         // 끝나면 이미지 숨기기
         if (CanvasController.Instance != null)

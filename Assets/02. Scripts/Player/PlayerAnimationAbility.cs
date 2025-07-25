@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class PlayerAnimationAbility : MonoBehaviour
 {
+    public static PlayerAnimationAbility Instance { get; private set; }
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
         animator = GetComponentInChildren<Animator>();
         if (animator == null)
             Debug.LogError("Animator 컴포넌트 없음");
@@ -56,4 +61,8 @@ public class PlayerAnimationAbility : MonoBehaviour
         }
     }
 
+    public void SetSleeping(bool sleeping)
+    {
+        animator.SetBool("IsSleep", sleeping);
+    }
 }
