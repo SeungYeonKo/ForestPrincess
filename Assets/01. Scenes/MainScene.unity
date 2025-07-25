@@ -108812,7 +108812,7 @@ GameObject:
   - component: {fileID: 1534831896}
   - component: {fileID: 1534831895}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: SleepButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110187,8 +110187,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 13
+    m_Font: {fileID: 12800000, guid: 48bdccd552bda564cb707d20a0a6102d, type: 3}
+    m_FontSize: 11
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -110379,6 +110379,7 @@ GameObject:
   - component: {fileID: 1948352584}
   - component: {fileID: 1948352581}
   - component: {fileID: 1948352585}
+  - component: {fileID: 1948352586}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -110576,6 +110577,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e232437315733d4fb438a06994a33cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1948352586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948352578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da7da0646d9b464281672f6e11bb359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1979457406
 GameObject:
   m_ObjectHideFlags: 0
@@ -110666,6 +110679,7 @@ GameObject:
   - component: {fileID: 2057467868}
   - component: {fileID: 2057467867}
   - component: {fileID: 2057467866}
+  - component: {fileID: 2057467870}
   m_Layer: 5
   m_Name: Canvas_UI
   m_TagString: Untagged
@@ -110704,7 +110718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 1.5
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -110756,6 +110770,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2057467870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057467865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff8984e99bcd2a408fbd058e4afc972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SleepButton: {fileID: 1534831895}
+  UIOffset: {x: -30, y: -20}
 --- !u!1 &2108196917
 GameObject:
   m_ObjectHideFlags: 0
