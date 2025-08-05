@@ -35,7 +35,13 @@ public class PlayerMoveAbility : MonoBehaviour
 
     void Update()
     {
-        // 우클릭으로 이동 목표 설정
+        // idle상태 아니면 이동 차단@
+        if (PlayerActiveAbility.Instance != null &&
+       PlayerActiveAbility.Instance.CurrentState != PlayerActiveAbility.PlayerActionState.Idle)
+        {
+            return;
+        }
+        // 마우스 우클릭으로 이동ㅎ하기
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -95,6 +101,7 @@ public class PlayerMoveAbility : MonoBehaviour
             ? movement.normalized
             : lastDir;
         animationAbility.SetDirection(animDir);
+
         if (movement.magnitude > threshold)
             lastDir = animDir;
 

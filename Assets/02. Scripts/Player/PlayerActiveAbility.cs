@@ -6,34 +6,60 @@ public class PlayerActiveAbility : MonoBehaviour
     public static PlayerActiveAbility Instance { get; private set; }
     private bool isSleeping = false;
 
+    // 액션 중일 때 이동안되게 하기 위한 enum추가
+    public enum PlayerActionState
+    {
+        Idle,
+        Sleeping,
+        Fishing,
+        Logging,
+        Talking,
+        Shoppping,
+        Mining
+    }
+
+    // 현재 상태 idle
+    public PlayerActionState CurrentState { get; private set; } = PlayerActionState.Idle;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    // 상태 변경(특정 액션 상태일 때 이동 제한 위함)
+    private void SetState(PlayerActionState newState)
+    {
+        CurrentState = newState;
+    }
+
+    public void EndAction()
+    {
+        CurrentState = PlayerActionState.Idle;
+    }
+
+
     public void Sleep()
     {
-        if (isSleeping) return;
+        if (CurrentState != PlayerActionState.Idle) return; // 다른 행동 중이면 무시
         StartCoroutine(SleepRoutine());
     }
 
     private IEnumerator SleepRoutine()
     {
-        isSleeping = true;
+        // 현재 상태 업데이트
+        SetState(PlayerActionState.Sleeping);
 
         PlayerAnimationAbility.Instance.TriggerSleep(true);
-        Debug.Log("잠자기");
+        Debug.Log("잠자기 시작");
 
-        // 8초 대기
         yield return new WaitForSeconds(8f);
-
         Debug.Log("잠자기 종료");
-        isSleeping = false;
 
         PlayerAnimationAbility.Instance.TriggerIdle();
 
-        // 끝나면 이미지 숨기기
+        EndAction();
+
         if (CanvasController.Instance != null)
             CanvasController.Instance.HideSleepImage();
     }
