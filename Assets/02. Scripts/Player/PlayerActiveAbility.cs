@@ -22,7 +22,7 @@ public class PlayerActiveAbility : MonoBehaviour
     {
         isSleeping = true;
 
-        PlayerAnimationAbility.Instance.SetSleeping(true);
+        PlayerAnimationAbility.Instance.TriggerSleep(true);
         Debug.Log("잠자기");
 
         // 8초 대기
@@ -31,7 +31,7 @@ public class PlayerActiveAbility : MonoBehaviour
         Debug.Log("잠자기 종료");
         isSleeping = false;
 
-        PlayerAnimationAbility.Instance.SetSleeping(false);
+        PlayerAnimationAbility.Instance.TriggerIdle();
 
         // 끝나면 이미지 숨기기
         if (CanvasController.Instance != null)
