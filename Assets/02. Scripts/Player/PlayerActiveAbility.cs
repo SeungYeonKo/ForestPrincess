@@ -5,6 +5,8 @@ public class PlayerActiveAbility : MonoBehaviour
 {
     public static PlayerActiveAbility Instance { get; private set; }
     private bool isSleeping = false;
+    public Transform SleepSpot;
+
 
     // 액션 중일 때 이동안되게 하기 위한 enum추가
     public enum PlayerActionState
@@ -49,6 +51,11 @@ public class PlayerActiveAbility : MonoBehaviour
     {
         // 현재 상태 업데이트
         SetState(PlayerActionState.Sleeping);
+
+        if (SleepSpot != null)
+        {
+            transform.position = SleepSpot.position;
+        }
 
         PlayerAnimationAbility.Instance.TriggerSleep(true);
         Debug.Log("잠자기 시작");

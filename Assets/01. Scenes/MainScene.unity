@@ -78282,6 +78282,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 132, y: 63.1509}
   m_EdgeRadius: 0
+--- !u!1 &119580182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119580183}
+  m_Layer: 0
+  m_Name: SleepSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119580183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119580182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.46, y: -6.86, z: -0.0132599175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &336549062
 GameObject:
   m_ObjectHideFlags: 0
@@ -110439,6 +110470,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1133840883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1941158852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1941158853}
+  m_Layer: 0
+  m_Name: '------------------------------------- '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1941158853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941158852}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.53643, y: -4.6730123, z: -0.0035800945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948352578
 GameObject:
   m_ObjectHideFlags: 0
@@ -110664,6 +110726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da7da0646d9b464281672f6e11bb359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SleepSpot: {fileID: 119580183}
 --- !u!1 &1979457406
 GameObject:
   m_ObjectHideFlags: 0
@@ -110953,3 +111016,5 @@ SceneRoots:
   - {fileID: 1353834700}
   - {fileID: 1133840883}
   - {fileID: 2057467869}
+  - {fileID: 1941158853}
+  - {fileID: 119580183}
